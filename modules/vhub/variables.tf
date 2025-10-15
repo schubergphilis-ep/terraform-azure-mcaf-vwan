@@ -26,6 +26,11 @@ variable "address_prefix" {
   }
 }
 
+variable "enable_routing_intent" {
+  type        = bool
+  description = "Indicates wheter or not to configure routing intent."
+}
+
 variable "routing_intent_name" {
   type        = string
   description = "The name of the routing intent associated with the virtual hub."
@@ -48,10 +53,11 @@ variable "firewall_policy_name" {
 
 variable "firewall_sku_tier" {
   type        = string
-  description = "The SKU tier of the firewall (e.g., 'Standard' or 'Premium')."
+  description = "The SKU tier of the firewall (e.g. 'Basic', 'Standard' or 'Premium')."
+
   validation {
-    condition     = contains(["Standard", "Premium"], var.firewall_sku_tier)
-    error_message = "firewall_sku_tier must be either 'Standard' or 'Premium'."
+    condition     = alltrue([!var.firewall_deploy || contains(["Basic", "Standard", "Premium"], var.firewall_sku_tier)])
+    error_message = "When firewall_deploy is true, the firewall_sku_tier must be either 'Basic', 'Standard' or 'Premium'."
   }
 }
 
@@ -59,19 +65,15 @@ variable "firewall_public_ip_count" {
   type        = number
   default     = null
   description = "The number of public IPs allocated to the firewall. Required if firewall_public_ip_prefix_id is not set."
-  # validation {
-  #   condition     = var.firewall_public_ip_count == null || (var.firewall_public_ip_count >= 1 && var.firewall_public_ip_count <= 10)
-  #   error_message = "firewall_public_ip_count must be between 1 and 10."
-  # }
 }
 
 variable "firewall_public_ip_prefix_length" {
   type        = number
-  default     = null
+  default     = 0
   description = "The public ip prefix length that will be requested for the firewall. Required if firewall_public_ip_count is not set."
 
   validation {
-    condition     = var.firewall_public_ip_prefix_length == null || !var.firewall_classic_ip_config
+    condition     = var.firewall_public_ip_prefix_length == 0 || !var.firewall_classic_ip_config
     error_message = "firewall_public_ip_prefix_length can only be used when firewall_classic_ip_config is set to false."
   }
 }
@@ -105,10 +107,10 @@ variable "firewall_threat_intelligence_mode" {
 variable "firewall_intrusion_detection_mode" {
   type        = string
   default     = "Alert"
-  description = "The mode of intrusion detection (e.g., 'Alert' or 'Deny')."
+  description = "The mode of intrusion detection (e.g., 'Alert', 'Deny' or 'Off')."
   validation {
-    condition     = contains(["Alert", "Deny"], var.firewall_intrusion_detection_mode)
-    error_message = "firewall_intrusion_detection_mode must be 'Alert' or 'Deny'."
+    condition     = contains(["Alert", "Deny", "Off"], var.firewall_intrusion_detection_mode)
+    error_message = "firewall_intrusion_detection_mode must be 'Alert', 'Deny' or 'Off'."
   }
 }
 
@@ -192,4 +194,3 @@ variable "tags" {
   default     = {}
   description = "A map of tags to assign to the resource."
 }
-

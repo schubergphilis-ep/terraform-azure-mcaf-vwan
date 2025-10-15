@@ -75,4 +75,3 @@ output "vhub_address_prefixes" {
     for k, v in module.vhub : k => v.address_prefix
   }
 }
-

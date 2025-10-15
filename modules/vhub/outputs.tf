@@ -45,5 +45,5 @@ output "address_prefix" {
 
 output "routing_intent_id" {
   description = "The ID of the routing intent for this Virtual Hub."
-  value       = var.firewall_deploy ? azurerm_virtual_hub_routing_intent.this[0].id : null
+  value       = var.firewall_deploy && var.enable_routing_intent ? azurerm_virtual_hub_routing_intent.this[0].id : null
 }

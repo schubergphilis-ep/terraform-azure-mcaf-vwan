@@ -3,6 +3,9 @@ name: "terraform-test"
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   terraform-test-unit:
     runs-on: ubuntu-latest

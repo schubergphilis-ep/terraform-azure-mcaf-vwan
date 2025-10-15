@@ -37,21 +37,22 @@ variable "virtual_hubs" {
     virtual_hub_name                            = string
     address_prefix                              = string
     location                                    = string
-    routing_intent_name                         = string
+    enable_routing_intent                       = optional(bool, true)
+    routing_intent_name                         = optional(string)
     firewall_deploy                             = optional(bool, true)
     firewall_classic_ip_config                  = optional(bool, false)
-    firewall_name                               = string
+    firewall_name                               = optional(string)
     firewall_zones                              = optional(set(string), ["1", "2", "3"])
-    firewall_policy_name                        = string
-    firewall_sku_tier                           = string
+    firewall_policy_name                        = optional(string)
+    firewall_sku_tier                           = optional(string)
     firewall_public_ip_count                    = optional(number)
-    firewall_public_ip_prefix_length            = optional(number)
+    firewall_public_ip_prefix_length            = optional(number, 0)
     firewall_public_ip_ddos_protection_mode     = optional(string, "VirtualNetworkInherited")
     firewall_public_ip_ddos_protection_plan_id  = optional(string)
-    firewall_threat_intelligence_mode           = string
+    firewall_threat_intelligence_mode           = optional(string, "Deny")
     firewall_intrusion_detection_mode           = optional(string, "Deny")
     firewall_dns_proxy_enabled                  = optional(bool, true)
-    firewall_dns_servers                        = list(string)
+    firewall_dns_servers                        = optional(list(string))
     firewall_intrusion_detection_private_ranges = optional(list(string), [])
     firewall_custom_ip_configurations = optional(list(object({
       name                 = string
@@ -76,6 +77,7 @@ variable "virtual_hubs" {
       name                = string
     }), null)
   }))
+
   description = <<DESCRIPTION
 This variable defines the configuration for virtual hubs, including firewall settings, routing, and security configurations.
 
