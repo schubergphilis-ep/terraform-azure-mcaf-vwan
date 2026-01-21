@@ -189,6 +189,33 @@ variable "firewall_custom_ip_configurations" {
   description = "List of custom IP configurations to add to the firewall. Each object must contain 'name' and 'public_ip_address_id'."
 }
 
+variable "firewall_insights_enabled" {
+  type        = bool
+  default     = false
+  description = "Whether the insights functionality is enabled for this Firewall Policy."
+}
+
+variable "firewall_insights_default_log_analytics_workspace_id" {
+  type        = string
+  default     = null
+  description = "The ID of the default Log Analytics Workspace that the Firewalls associated with this Firewall Policy will send their logs to, when there is no location matches in the log_analytics_workspace."
+}
+
+variable "firewall_insights_retention_in_days" {
+  type        = number
+  default     = null
+  description = "The log retention period in days for firewall insights."
+}
+
+variable "firewall_insights_log_analytics_workspaces" {
+  type = list(object({
+    id                = string
+    firewall_location = string
+  }))
+  default     = []
+  description = "A list of log_analytics_workspace blocks. Each object must contain 'id' (the Log Analytics Workspace ID) and 'firewall_location' (the location of the Firewalls)."
+}
+
 variable "tags" {
   type        = map(string)
   default     = {}
