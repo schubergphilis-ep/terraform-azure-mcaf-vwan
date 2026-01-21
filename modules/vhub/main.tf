@@ -175,14 +175,15 @@ resource "azurerm_firewall_policy" "this" {
 
     content {
       enabled                            = var.firewall_insights_enabled
-      default_log_analytics_workspace_id = var.firewall_insights_default_log_analytics_workspace_id
+      default_log_analytics_workspace_id = provider::azurerm::normalise_resource_id(var.firewall_insights_default_log_analytics_workspace_id)
+
       retention_in_days                  = var.firewall_insights_retention_in_days
 
       dynamic "log_analytics_workspace" {
         for_each = var.firewall_insights_log_analytics_workspaces
 
         content {
-          id                = log_analytics_workspace.value.id
+          id                = provider::azurerm::normalise_resource_id(log_analytics_workspace.value.id)
           firewall_location = log_analytics_workspace.value.firewall_location
         }
       }
