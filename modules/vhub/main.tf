@@ -23,7 +23,7 @@ resource "azurerm_firewall" "this" {
   location            = var.location
   sku_name            = "AZFW_Hub"
   sku_tier            = var.firewall_sku_tier
-  firewall_policy_id  = azurerm_firewall_policy.this[0].id
+  firewall_policy_id  = azurerm_firewall_policy.this[0].id #checkov:skip=CKV_AZURE_216:The default is set to 'Deny' in the parent module.
   zones               = var.firewall_zones
 
   virtual_hub {
@@ -174,7 +174,7 @@ resource "azurerm_firewall_policy" "this" {
 }
 
 resource "azurerm_virtual_hub_routing_intent" "this" {
-  count = var.firewall_deploy ? 1 : 0
+  count = var.firewall_deploy && var.enable_routing_intent ? 1 : 0
 
   name           = var.routing_intent_name
   virtual_hub_id = azurerm_virtual_hub.this.id

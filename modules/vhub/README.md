@@ -36,11 +36,12 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_address_prefix"></a> [address\_prefix](#input\_address\_prefix) | The IP address prefix assigned to the virtual hub (e.g., '10.0.0.0/16'). | `string` | n/a | yes |
+| <a name="input_enable_routing_intent"></a> [enable\_routing\_intent](#input\_enable\_routing\_intent) | Indicates wheter or not to configure routing intent. | `bool` | n/a | yes |
 | <a name="input_firewall_dns_proxy_enabled"></a> [firewall\_dns\_proxy\_enabled](#input\_firewall\_dns\_proxy\_enabled) | Indicates whether the DNS proxy is enabled for the firewall. | `bool` | n/a | yes |
 | <a name="input_firewall_dns_servers"></a> [firewall\_dns\_servers](#input\_firewall\_dns\_servers) | A list of DNS servers configured for the firewall. | `list(string)` | n/a | yes |
 | <a name="input_firewall_name"></a> [firewall\_name](#input\_firewall\_name) | The name of the Azure Firewall deployed within the virtual hub. | `string` | n/a | yes |
 | <a name="input_firewall_policy_name"></a> [firewall\_policy\_name](#input\_firewall\_policy\_name) | The name of the firewall policy applied to the Azure Firewall. | `string` | n/a | yes |
-| <a name="input_firewall_sku_tier"></a> [firewall\_sku\_tier](#input\_firewall\_sku\_tier) | The SKU tier of the firewall (e.g., 'Standard' or 'Premium'). | `string` | n/a | yes |
+| <a name="input_firewall_sku_tier"></a> [firewall\_sku\_tier](#input\_firewall\_sku\_tier) | The SKU tier of the firewall (e.g. 'Basic', 'Standard' or 'Premium'). | `string` | n/a | yes |
 | <a name="input_firewall_threat_intelligence_mode"></a> [firewall\_threat\_intelligence\_mode](#input\_firewall\_threat\_intelligence\_mode) | The mode of threat intelligence for the firewall (e.g., 'Alert', 'Deny', or 'Off'). | `string` | n/a | yes |
 | <a name="input_firewall_zones"></a> [firewall\_zones](#input\_firewall\_zones) | Availability zones where the firewall is deployed (e.g., ['1', '2', '3']). | `set(string)` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | The Azure region where the virtual hub is deployed. | `string` | n/a | yes |
@@ -51,7 +52,7 @@ No modules.
 | <a name="input_firewall_classic_ip_config"></a> [firewall\_classic\_ip\_config](#input\_firewall\_classic\_ip\_config) | Controls whether to use classic IP configuration for the firewall. | `bool` | `false` | no |
 | <a name="input_firewall_custom_ip_configurations"></a> [firewall\_custom\_ip\_configurations](#input\_firewall\_custom\_ip\_configurations) | List of custom IP configurations to add to the firewall. Each object must contain 'name' and 'public\_ip\_address\_id'. | <pre>list(object({<br/>    name                 = string<br/>    public_ip_address_id = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_firewall_deploy"></a> [firewall\_deploy](#input\_firewall\_deploy) | Controls whether to deploy an Azure Firewall in the Virtual Hub | `bool` | `true` | no |
-| <a name="input_firewall_intrusion_detection_mode"></a> [firewall\_intrusion\_detection\_mode](#input\_firewall\_intrusion\_detection\_mode) | The mode of intrusion detection (e.g., 'Alert' or 'Deny'). | `string` | `"Alert"` | no |
+| <a name="input_firewall_intrusion_detection_mode"></a> [firewall\_intrusion\_detection\_mode](#input\_firewall\_intrusion\_detection\_mode) | The mode of intrusion detection (e.g., 'Alert', 'Deny' or 'Off'). | `string` | `"Alert"` | no |
 | <a name="input_firewall_intrusion_detection_private_ranges"></a> [firewall\_intrusion\_detection\_private\_ranges](#input\_firewall\_intrusion\_detection\_private\_ranges) | A list of private IP ranges for intrusion detection. | `list(string)` | `[]` | no |
 | <a name="input_firewall_intrusion_detection_signature_overrides"></a> [firewall\_intrusion\_detection\_signature\_overrides](#input\_firewall\_intrusion\_detection\_signature\_overrides) | A list of firewall intrusion detection signature overrides. | <pre>list(object({<br/>    id    = string<br/>    state = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_firewall_intrusion_detection_tls_certificate"></a> [firewall\_intrusion\_detection\_tls\_certificate](#input\_firewall\_intrusion\_detection\_tls\_certificate) | TLS certificate used for intrusion detection (stored in Key Vault). | <pre>object({<br/>    key_vault_secret_id = string<br/>    name                = string<br/>  })</pre> | `null` | no |
@@ -59,7 +60,7 @@ No modules.
 | <a name="input_firewall_public_ip_count"></a> [firewall\_public\_ip\_count](#input\_firewall\_public\_ip\_count) | The number of public IPs allocated to the firewall. Required if firewall\_public\_ip\_prefix\_id is not set. | `number` | `null` | no |
 | <a name="input_firewall_public_ip_ddos_protection_mode"></a> [firewall\_public\_ip\_ddos\_protection\_mode](#input\_firewall\_public\_ip\_ddos\_protection\_mode) | The DDoS protection mode for the public IP. Possible values are Disabled, Enabled, and VirtualNetworkInherited. | `string` | `"VirtualNetworkInherited"` | no |
 | <a name="input_firewall_public_ip_ddos_protection_plan_id"></a> [firewall\_public\_ip\_ddos\_protection\_plan\_id](#input\_firewall\_public\_ip\_ddos\_protection\_plan\_id) | The ID of the DDoS protection plan to be attached to the public IP. Required if ddos\_protection\_mode is Enabled. | `string` | `null` | no |
-| <a name="input_firewall_public_ip_prefix_length"></a> [firewall\_public\_ip\_prefix\_length](#input\_firewall\_public\_ip\_prefix\_length) | The public ip prefix length that will be requested for the firewall. Required if firewall\_public\_ip\_count is not set. | `number` | `null` | no |
+| <a name="input_firewall_public_ip_prefix_length"></a> [firewall\_public\_ip\_prefix\_length](#input\_firewall\_public\_ip\_prefix\_length) | The public ip prefix length that will be requested for the firewall. Required if firewall\_public\_ip\_count is not set. | `number` | `0` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to assign to the resource. | `map(string)` | `{}` | no |
 
 ## Outputs

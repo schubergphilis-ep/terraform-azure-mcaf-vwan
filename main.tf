@@ -30,6 +30,7 @@ module "vhub" {
   virtual_hub_name                                 = each.value.virtual_hub_name
   location                                         = each.value.location
   address_prefix                                   = each.value.address_prefix
+  enable_routing_intent                            = each.value.enable_routing_intent
   routing_intent_name                              = each.value.routing_intent_name
   firewall_name                                    = each.value.firewall_name
   firewall_zones                                   = each.value.firewall_zones

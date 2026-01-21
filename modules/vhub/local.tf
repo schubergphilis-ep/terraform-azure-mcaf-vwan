@@ -10,7 +10,7 @@ locals {
       [try(azurerm_public_ip.this[0].ip_address, null)]
     )
   ) : []
-  total_ips = length(var.firewall_custom_ip_configurations) > 0 && var.firewall_public_ip_count == null && var.firewall_public_ip_prefix_length == null ? 0 : (
+  total_ips = length(var.firewall_custom_ip_configurations) > 0 && var.firewall_public_ip_count == null && var.firewall_public_ip_prefix_length == 0 ? 0 : (
     var.firewall_public_ip_count != null ? var.firewall_public_ip_count : pow(2, 32 - var.firewall_public_ip_prefix_length)
   )
 }
