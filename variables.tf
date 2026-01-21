@@ -76,6 +76,13 @@ variable "virtual_hubs" {
       key_vault_secret_id = string
       name                = string
     }), null)
+    firewall_insights_enabled                            = optional(bool, false)
+    firewall_insights_default_log_analytics_workspace_id = optional(string)
+    firewall_insights_retention_in_days                  = optional(number)
+    firewall_insights_log_analytics_workspaces = optional(list(object({
+      id                = string
+      firewall_location = string
+    })), [])
   }))
 
   description = <<DESCRIPTION

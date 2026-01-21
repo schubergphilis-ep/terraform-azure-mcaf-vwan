@@ -170,6 +170,26 @@ resource "azurerm_firewall_policy" "this" {
     servers       = var.firewall_dns_servers
   }
 
+  dynamic "insights" {
+    for_each = var.firewall_insights_enabled ? [1] : []
+
+    content {
+      enabled                            = var.firewall_insights_enabled
+      default_log_analytics_workspace_id = provider::azurerm::normalise_resource_id(var.firewall_insights_default_log_analytics_workspace_id)
+
+      retention_in_days = var.firewall_insights_retention_in_days
+
+      dynamic "log_analytics_workspace" {
+        for_each = var.firewall_insights_log_analytics_workspaces
+
+        content {
+          id                = provider::azurerm::normalise_resource_id(log_analytics_workspace.value.id)
+          firewall_location = log_analytics_workspace.value.firewall_location
+        }
+      }
+    }
+  }
+
   tags = merge(var.tags, { "Resource Type" = "Firewall Policy" })
 }
 

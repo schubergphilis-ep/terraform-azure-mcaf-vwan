@@ -49,6 +49,22 @@ resource "azurerm_key_vault" "example" {
   sku_name = "standard"
 }
 
+resource "azurerm_log_analytics_workspace" "default" {
+  name                = "default-law"
+  location            = azurerm_resource_group.this.location
+  resource_group_name = azurerm_resource_group.this.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
+resource "azurerm_log_analytics_workspace" "westeurope" {
+  name                = "westeurope-law"
+  location            = "westeurope"
+  resource_group_name = azurerm_resource_group.this.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
 module "vwan" {
   source = "../../"
 
@@ -109,6 +125,15 @@ module "vwan" {
         key_vault_secret_id = "${azurerm_key_vault.example.id}/secrets/example-cert"
         name                = "certname"
       }
+      firewall_insights_enabled                            = true
+      firewall_insights_default_log_analytics_workspace_id = azurerm_log_analytics_workspace.default.id
+      firewall_insights_retention_in_days                  = 30
+      firewall_insights_log_analytics_workspaces = [
+        {
+          id                = azurerm_log_analytics_workspace.westeurope.id
+          firewall_location = "westeurope"
+        }
+      ]
     }
   }
 
