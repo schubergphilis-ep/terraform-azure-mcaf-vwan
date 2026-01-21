@@ -177,7 +177,7 @@ resource "azurerm_firewall_policy" "this" {
       enabled                            = var.firewall_insights_enabled
       default_log_analytics_workspace_id = provider::azurerm::normalise_resource_id(var.firewall_insights_default_log_analytics_workspace_id)
 
-      retention_in_days                  = var.firewall_insights_retention_in_days
+      retention_in_days = var.firewall_insights_retention_in_days
 
       dynamic "log_analytics_workspace" {
         for_each = var.firewall_insights_log_analytics_workspaces
