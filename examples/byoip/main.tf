@@ -24,15 +24,34 @@ resource "azurerm_resource_group" "this" {
   }
 }
 
-# Externally managed public IPs (Bring Your Own IP)
-resource "azurerm_public_ip" "firewall" {
-  count = 2
+# Externally managed public IP prefix and IPs (Bring Your Own IP).
+# These resources live outside the VWAN module, giving you full control
+# over the IP lifecycle -- IPs survive firewall rebuilds, can be shared
+# across modules, and are managed by your own Terraform configuration.
 
-  name                = "example-fw-pip-${count.index}"
+resource "azurerm_public_ip_prefix" "firewall" {
+  name                = "example-fw-pip-prefix"
+  location            = azurerm_resource_group.this.location
+  resource_group_name = azurerm_resource_group.this.name
+  prefix_length       = 30
+  zones               = ["1", "2", "3"]
+
+  tags = {
+    "Environment" = "Production"
+    "Purpose"     = "Firewall"
+  }
+}
+
+resource "azurerm_public_ip" "firewall" {
+  count = 4 # /30 = 4 usable IPs
+
+  name                = "example-fw-pip-${count.index + 1}"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   allocation_method   = "Static"
   sku                 = "Standard"
+  zones               = ["1", "2", "3"]
+  public_ip_prefix_id = azurerm_public_ip_prefix.firewall.id
 
   tags = {
     "Environment" = "Production"
@@ -62,16 +81,14 @@ module "vwan" {
       firewall_threat_intelligence_mode = "Alert"
       firewall_dns_servers              = ["8.8.8.8", "8.8.4.4"]
 
-      # BYOIP mode: no ip_count, no prefix_length, only custom IPs
+      # BYOIP mode: pass all externally managed IPs to the firewall.
+      # No firewall_public_ip_count or firewall_public_ip_prefix_length --
+      # the module creates no IPs itself.
       firewall_custom_ip_configurations = [
-        {
-          name                 = "byoip-1"
-          public_ip_address_id = azurerm_public_ip.firewall[0].id
-        },
-        {
-          name                 = "byoip-2"
-          public_ip_address_id = azurerm_public_ip.firewall[1].id
-        },
+        for i, pip in azurerm_public_ip.firewall : {
+          name                 = "byoip-${i + 1}"
+          public_ip_address_id = pip.id
+        }
       ]
     }
   }
