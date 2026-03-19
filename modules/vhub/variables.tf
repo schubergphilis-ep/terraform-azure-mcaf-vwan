@@ -172,12 +172,26 @@ variable "firewall_deploy" {
   type        = bool
   default     = true
   description = "Controls whether to deploy an Azure Firewall in the Virtual Hub"
+
+  validation {
+    condition = !var.firewall_deploy || var.firewall_classic_ip_config || (
+      var.firewall_public_ip_prefix_length != null ||
+      var.firewall_public_ip_count != null ||
+      length(var.firewall_custom_ip_configurations) > 0
+    )
+    error_message = "When firewall_deploy is true and firewall_classic_ip_config is false, at least one of firewall_public_ip_prefix_length, firewall_public_ip_count, or firewall_custom_ip_configurations must be set."
+  }
 }
 
 variable "firewall_classic_ip_config" {
   type        = bool
   default     = false
   description = "Controls whether to use classic IP configuration for the firewall."
+
+  validation {
+    condition     = !var.firewall_classic_ip_config || !var.firewall_deploy || var.firewall_public_ip_count != null
+    error_message = "When firewall_classic_ip_config is true and firewall_deploy is true, firewall_public_ip_count must be set."
+  }
 }
 
 variable "firewall_custom_ip_configurations" {
@@ -187,6 +201,11 @@ variable "firewall_custom_ip_configurations" {
   }))
   default     = []
   description = "List of custom IP configurations to add to the firewall. Each object must contain 'name' and 'public_ip_address_id'."
+
+  validation {
+    condition     = !var.firewall_classic_ip_config || length(var.firewall_custom_ip_configurations) == 0
+    error_message = "firewall_custom_ip_configurations cannot be used when firewall_classic_ip_config is true. Classic mode does not support custom IP configurations."
+  }
 }
 
 variable "firewall_insights_enabled" {
