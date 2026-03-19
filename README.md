@@ -1,9 +1,28 @@
 # terraform-azure-mcaf-vwan
 
 The module can deploy a vwan with and without a secure hub.
-it's possible to deploy a secure hub with the classic method (slider) or a single PIP.
+It supports multiple firewall public IP configuration modes, each suited for different operational requirements.
 
-The advantage of the PIP is that it will stay, whenever you need to redo the Firewall you can reconnect that IP back, and you dont need to inform any of the suppliers about fw ip changes.
+## Firewall Public IP Modes
+
+When `firewall_deploy = true`, you must choose how the firewall's public IPs are provisioned.
+The mode is determined by the combination of `firewall_classic_ip_config`, `firewall_public_ip_count`,
+`firewall_public_ip_prefix_length`, and `firewall_custom_ip_configurations`.
+
+| Mode | `classic_ip_config` | `ip_count` | `prefix_length` | `custom_ip_configurations` | Description |
+|------|:-------------------:|:----------:|:----------------:|:--------------------------:|-------------|
+| **Classic** | `true` | required | - | - | Uses `azurerm_firewall` with the built-in IP count slider. Simplest setup. |
+| **Count (AzAPI)** | `false` | set | - | optional | Creates individual `azurerm_public_ip` resources managed by the module. IPs persist across firewall rebuilds. |
+| **Prefix (AzAPI)** | `false` | - | set | optional | Allocates an `azurerm_public_ip_prefix` and derives IPs from it. Guarantees a contiguous IP range. |
+| **BYOIP (AzAPI)** | `false` | - | - | required | Uses only externally managed public IPs. Full control over IP lifecycle outside this module. |
+
+**Notes:**
+- Count + custom IPs and Prefix + custom IPs are valid combinations (IPs are concatenated).
+- Classic mode cannot be combined with custom IPs or IP prefix.
+- In BYOIP-only mode, the `vhub_firewall_public_ip_addresses` output returns `[]` because the module does not manage those IPs.
+
+See [`examples/basic`](examples/basic) for count mode, [`examples/advanced`](examples/advanced) for prefix + custom IPs,
+and [`examples/byoip`](examples/byoip) for BYOIP-only mode.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
