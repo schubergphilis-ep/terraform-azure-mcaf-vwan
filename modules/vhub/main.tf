@@ -16,7 +16,7 @@ resource "azurerm_virtual_hub" "this" {
 }
 
 resource "azurerm_firewall" "this" {
-  count = var.firewall_deploy && var.firewall_classic_ip_config ? 1 : 0
+  count = local.ip_mode_classic ? 1 : 0
 
   name                = var.firewall_name
   resource_group_name = var.resource_group_name
@@ -35,7 +35,7 @@ resource "azurerm_firewall" "this" {
 }
 
 resource "azurerm_public_ip_prefix" "this" {
-  count = var.firewall_deploy && var.firewall_public_ip_prefix_length != null && !var.firewall_classic_ip_config ? 1 : 0
+  count = local.deploy_prefix ? 1 : 0
 
   name                = "${var.firewall_name}-pip-prefix"
   location            = var.location
@@ -48,7 +48,7 @@ resource "azurerm_public_ip_prefix" "this" {
 }
 
 resource "azurerm_public_ip" "this" {
-  count = var.firewall_deploy && !var.firewall_classic_ip_config ? local.total_ips : 0
+  count = local.ip_mode_azapi ? local.total_ips : 0
 
   name                    = "${var.firewall_name}-pip-${count.index + 1}"
   location                = var.location
@@ -64,7 +64,7 @@ resource "azurerm_public_ip" "this" {
 }
 
 resource "azapi_resource" "firewall" {
-  count = var.firewall_deploy && !var.firewall_classic_ip_config ? 1 : 0
+  count = local.ip_mode_azapi ? 1 : 0
 
   type     = "Microsoft.Network/azureFirewalls@2024-05-01"
   name     = var.firewall_name
