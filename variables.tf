@@ -46,7 +46,7 @@ variable "virtual_hubs" {
     firewall_policy_name                        = optional(string)
     firewall_sku_tier                           = optional(string)
     firewall_public_ip_count                    = optional(number)
-    firewall_public_ip_prefix_length            = optional(number, 0)
+    firewall_public_ip_prefix_length            = optional(number)
     firewall_public_ip_ddos_protection_mode     = optional(string, "VirtualNetworkInherited")
     firewall_public_ip_ddos_protection_plan_id  = optional(string)
     firewall_threat_intelligence_mode           = optional(string, "Deny")

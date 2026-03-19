@@ -69,11 +69,11 @@ variable "firewall_public_ip_count" {
 
 variable "firewall_public_ip_prefix_length" {
   type        = number
-  default     = 0
+  default     = null
   description = "The public ip prefix length that will be requested for the firewall. Required if firewall_public_ip_count is not set."
 
   validation {
-    condition     = var.firewall_public_ip_prefix_length == 0 || !var.firewall_classic_ip_config
+    condition     = var.firewall_public_ip_prefix_length == null || !var.firewall_classic_ip_config
     error_message = "firewall_public_ip_prefix_length can only be used when firewall_classic_ip_config is set to false."
   }
 }
