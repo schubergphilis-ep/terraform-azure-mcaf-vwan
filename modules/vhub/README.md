@@ -64,7 +64,7 @@ No modules.
 | <a name="input_firewall_public_ip_count"></a> [firewall\_public\_ip\_count](#input\_firewall\_public\_ip\_count) | The number of public IPs allocated to the firewall. Required if firewall\_public\_ip\_prefix\_id is not set. | `number` | `null` | no |
 | <a name="input_firewall_public_ip_ddos_protection_mode"></a> [firewall\_public\_ip\_ddos\_protection\_mode](#input\_firewall\_public\_ip\_ddos\_protection\_mode) | The DDoS protection mode for the public IP. Possible values are Disabled, Enabled, and VirtualNetworkInherited. | `string` | `"VirtualNetworkInherited"` | no |
 | <a name="input_firewall_public_ip_ddos_protection_plan_id"></a> [firewall\_public\_ip\_ddos\_protection\_plan\_id](#input\_firewall\_public\_ip\_ddos\_protection\_plan\_id) | The ID of the DDoS protection plan to be attached to the public IP. Required if ddos\_protection\_mode is Enabled. | `string` | `null` | no |
-| <a name="input_firewall_public_ip_prefix_length"></a> [firewall\_public\_ip\_prefix\_length](#input\_firewall\_public\_ip\_prefix\_length) | The public ip prefix length that will be requested for the firewall. Required if firewall\_public\_ip\_count is not set. | `number` | `0` | no |
+| <a name="input_firewall_public_ip_prefix_length"></a> [firewall\_public\_ip\_prefix\_length](#input\_firewall\_public\_ip\_prefix\_length) | The public ip prefix length that will be requested for the firewall. Required if firewall\_public\_ip\_count is not set. | `number` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to assign to the resource. | `map(string)` | `{}` | no |
 
 ## Outputs
