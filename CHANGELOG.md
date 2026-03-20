@@ -4,6 +4,34 @@ All notable changes to this project will automatically be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.3.0 - 2026-03-20
+
+### What's Changed
+
+Possible Breaking change (although small chance): stricter validation requires explicit IP source when not using classic mode. Most deployments unaffected."
+Basic, you have to select an ip_mode which probably already have..
+option 1: firewall_classic_ip_config = true  # ← Azure manages IPs
+option 2:  firewall_public_ip_count = 1  # ← Explicitly set how many IPs
+option 3: firewall_public_ip_prefix_length = 30  # ← Create IPs from prefix
+option 4: (none of the above) but -> firewall_custom_ip_configurations =       {
+name                 = "custom-ip-1"
+public_ip_address_id = azurerm_public_ip.example.id
+}
+
+#### 🚀 Features
+
+* feature: adding byoip only support to the module, so you can remove included prefixes (#19) @Blankf
+
+#### 🐛 Bug Fixes
+
+* feature: adding byoip only support to the module, so you can remove included prefixes (#19) @Blankf
+
+#### 📖 Documentation
+
+* feature: adding byoip only support to the module, so you can remove included prefixes (#19) @Blankf
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v1.2.0...v1.3.0
+
 ## v1.2.0 - 2026-01-21
 
 ### What's Changed
