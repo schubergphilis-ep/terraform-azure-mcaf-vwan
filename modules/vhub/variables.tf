@@ -69,13 +69,8 @@ variable "firewall_public_ip_count" {
 
 variable "firewall_public_ip_prefix_length" {
   type        = number
-  default     = 0
+  default     = null
   description = "The public ip prefix length that will be requested for the firewall. Required if firewall_public_ip_count is not set."
-
-  validation {
-    condition     = var.firewall_public_ip_prefix_length == 0 || !var.firewall_classic_ip_config
-    error_message = "firewall_public_ip_prefix_length can only be used when firewall_classic_ip_config is set to false."
-  }
 }
 
 variable "firewall_public_ip_ddos_protection_mode" {
@@ -172,6 +167,33 @@ variable "firewall_deploy" {
   type        = bool
   default     = true
   description = "Controls whether to deploy an Azure Firewall in the Virtual Hub"
+
+  # All cross-variable firewall validations are consolidated here to avoid
+  # dependency cycles between variable validation blocks.
+
+  validation {
+    condition = !var.firewall_deploy || var.firewall_classic_ip_config || (
+      var.firewall_public_ip_prefix_length != null ||
+      var.firewall_public_ip_count != null ||
+      length(var.firewall_custom_ip_configurations) > 0
+    )
+    error_message = "When firewall_deploy is true and firewall_classic_ip_config is false, at least one of firewall_public_ip_prefix_length, firewall_public_ip_count, or firewall_custom_ip_configurations must be set."
+  }
+
+  validation {
+    condition     = !var.firewall_deploy || !var.firewall_classic_ip_config || var.firewall_public_ip_count != null
+    error_message = "When firewall_classic_ip_config is true and firewall_deploy is true, firewall_public_ip_count must be set."
+  }
+
+  validation {
+    condition     = !var.firewall_deploy || !var.firewall_classic_ip_config || length(var.firewall_custom_ip_configurations) == 0
+    error_message = "firewall_custom_ip_configurations cannot be used when firewall_classic_ip_config is true. Classic mode does not support custom IP configurations."
+  }
+
+  validation {
+    condition     = !var.firewall_deploy || var.firewall_public_ip_prefix_length == null || !var.firewall_classic_ip_config
+    error_message = "firewall_public_ip_prefix_length can only be used when firewall_classic_ip_config is false."
+  }
 }
 
 variable "firewall_classic_ip_config" {

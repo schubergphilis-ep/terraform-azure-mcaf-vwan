@@ -44,11 +44,11 @@ module "vwan" {
       firewall_sku_tier                 = "Standard"
       firewall_threat_intelligence_mode = "Alert"
       firewall_dns_servers              = ["8.8.8.8", "8.8.4.4"]
+      firewall_public_ip_count          = 1
       # Optional parameters with defaults:
       # firewall_deploy = true
       # firewall_classic_ip_config = false
       # firewall_zones = ["1", "2", "3"]
-      # firewall_public_ip_count = null
       # firewall_public_ip_prefix_length = null
       # firewall_public_ip_ddos_protection_mode = "VirtualNetworkInherited"
       # firewall_public_ip_ddos_protection_plan_id = null

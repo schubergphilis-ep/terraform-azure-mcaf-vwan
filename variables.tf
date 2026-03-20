@@ -46,7 +46,7 @@ variable "virtual_hubs" {
     firewall_policy_name                        = optional(string)
     firewall_sku_tier                           = optional(string)
     firewall_public_ip_count                    = optional(number)
-    firewall_public_ip_prefix_length            = optional(number, 0)
+    firewall_public_ip_prefix_length            = optional(number)
     firewall_public_ip_ddos_protection_mode     = optional(string, "VirtualNetworkInherited")
     firewall_public_ip_ddos_protection_plan_id  = optional(string)
     firewall_threat_intelligence_mode           = optional(string, "Deny")
@@ -84,6 +84,45 @@ variable "virtual_hubs" {
       firewall_location = string
     })), [])
   }))
+
+  # Cross-variable firewall validations mirrored from modules/vhub for early
+  # feedback at the root module level and to support expect_failures in tests.
+
+  validation {
+    condition = alltrue([
+      for k, v in var.virtual_hubs :
+      !v.firewall_deploy || v.firewall_classic_ip_config || (
+        v.firewall_public_ip_prefix_length != null ||
+        v.firewall_public_ip_count != null ||
+        length(v.firewall_custom_ip_configurations) > 0
+      )
+    ])
+    error_message = "When firewall_deploy is true and firewall_classic_ip_config is false, at least one of firewall_public_ip_prefix_length, firewall_public_ip_count, or firewall_custom_ip_configurations must be set."
+  }
+
+  validation {
+    condition = alltrue([
+      for k, v in var.virtual_hubs :
+      !v.firewall_deploy || !v.firewall_classic_ip_config || v.firewall_public_ip_count != null
+    ])
+    error_message = "When firewall_classic_ip_config is true and firewall_deploy is true, firewall_public_ip_count must be set."
+  }
+
+  validation {
+    condition = alltrue([
+      for k, v in var.virtual_hubs :
+      !v.firewall_deploy || !v.firewall_classic_ip_config || length(v.firewall_custom_ip_configurations) == 0
+    ])
+    error_message = "firewall_custom_ip_configurations cannot be used when firewall_classic_ip_config is true. Classic mode does not support custom IP configurations."
+  }
+
+  validation {
+    condition = alltrue([
+      for k, v in var.virtual_hubs :
+      !v.firewall_deploy || v.firewall_public_ip_prefix_length == null || !v.firewall_classic_ip_config
+    ])
+    error_message = "firewall_public_ip_prefix_length can only be used when firewall_classic_ip_config is false."
+  }
 
   description = <<DESCRIPTION
 This variable defines the configuration for virtual hubs, including firewall settings, routing, and security configurations.
