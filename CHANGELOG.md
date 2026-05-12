@@ -4,6 +4,16 @@ All notable changes to this project will automatically be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.4.0 - 2026-04-16
+
+### What's Changed
+
+#### 🚀 Features
+
+* feature: add `firewall_public_ip_tags` variable to the vhub module, allowing additional tags to be assigned specifically to the public IP resources created for the Azure Firewall. This is a non-breaking addition — the variable defaults to an empty map, so existing configurations require no changes.
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v1.3.0...v1.4.0
+
 ## v1.3.0 - 2026-03-20
 
 ### What's Changed

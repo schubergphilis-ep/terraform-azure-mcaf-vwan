@@ -60,7 +60,7 @@ resource "azurerm_public_ip" "this" {
   ddos_protection_mode    = var.firewall_public_ip_ddos_protection_mode
   ddos_protection_plan_id = var.firewall_public_ip_ddos_protection_plan_id
 
-  tags = merge(var.tags, { "Resource Type" = "Public IP" })
+  tags = merge(var.tags, var.firewall_public_ip_tags, { "Resource Type" = "Public IP" })
 }
 
 resource "azapi_resource" "firewall" {

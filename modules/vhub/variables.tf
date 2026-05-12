@@ -243,3 +243,9 @@ variable "tags" {
   default     = {}
   description = "A map of tags to assign to the resource."
 }
+
+variable "firewall_public_ip_tags" {
+  type        = map(string)
+  default     = {}
+  description = "A map of additional tags to assign specifically to the public IP resources created for the Azure Firewall."
+}
