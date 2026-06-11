@@ -1,131 +1,145 @@
 # Changelog
 
-All notable changes to this project will automatically be documented in this file.
+All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.4.0 - 2026-04-16
+---
 
-### What's Changed
+## [1.4.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v1.3.0...v1.4.0) (2026-05-12)
 
-#### 🚀 Features
 
-* feature: add `firewall_public_ip_tags` variable to the vhub module, allowing additional tags to be assigned specifically to the public IP resources created for the Azure Firewall. This is a non-breaking addition — the variable defaults to an empty map, so existing configurations require no changes.
+### 🚀 Features
 
-**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v1.3.0...v1.4.0
+* Add option to add additional Azure tags to Public IP Addresses in Firewall ([#20](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/20)) ([e562248](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/e562248f16af0021ba375341913ce90409b2a81c))
 
-## v1.3.0 - 2026-03-20
+## [1.3.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v1.2.0...v1.3.0) (2026-03-20)
 
-### What's Changed
 
-Possible Breaking change (although small chance): stricter validation requires explicit IP source when not using classic mode. Most deployments unaffected."
-Basic, you have to select an ip_mode which probably already have..
-option 1: firewall_classic_ip_config = true  # ← Azure manages IPs
-option 2:  firewall_public_ip_count = 1  # ← Explicitly set how many IPs
-option 3: firewall_public_ip_prefix_length = 30  # ← Create IPs from prefix
-option 4: (none of the above) but -> firewall_custom_ip_configurations =       {
-name                 = "custom-ip-1"
-public_ip_address_id = azurerm_public_ip.example.id
-}
+### 🚀 Features
 
-#### 🚀 Features
+* adding byoip only support to the module, so you can remove included prefixes ([#19](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/19)) ([6e144b2](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/6e144b213b50fb195a0cf72ec6b3a946568a0c6e))
+* adding byoip only support to the module, so you can remove included prefixes ([#19](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/19)) ([6e144b2](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/6e144b213b50fb195a0cf72ec6b3a946568a0c6e))
+* adding byoip only support to the module, so you can remove included prefixes ([#19](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/19)) ([6e144b2](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/6e144b213b50fb195a0cf72ec6b3a946568a0c6e))
 
-* feature: adding byoip only support to the module, so you can remove included prefixes (#19) @Blankf
+## [1.2.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v1.1.0...v1.2.0) (2026-01-21)
 
-#### 🐛 Bug Fixes
 
-* feature: adding byoip only support to the module, so you can remove included prefixes (#19) @Blankf
+### 🚀 Features
 
-#### 📖 Documentation
+* add optional insights block to firewall policy ([#18](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/18)) ([54c8c8a](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/54c8c8a45017b92df11a2f430805f8e9ae96b8c7))
+* add optional insights block to firewall policy ([#18](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/18)) ([54c8c8a](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/54c8c8a45017b92df11a2f430805f8e9ae96b8c7))
 
-* feature: adding byoip only support to the module, so you can remove included prefixes (#19) @Blankf
+## [1.1.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v1.0.1...v1.1.0) (2026-01-21)
 
-**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v1.2.0...v1.3.0
 
-## v1.2.0 - 2026-01-21
+### 🚀 Features
 
-### What's Changed
+* enhancement: Make firewall variables and routing intent optional when not used. ([#17](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/17)) ([07ba454](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/07ba45446c0571f4a3d04e1c73e9c61dbe42d435))
 
-#### 🚀 Features
+## [1.0.1](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v1.0.0...v1.0.1) (2025-05-13)
 
-* feature: add optional insights block to firewall policy (#18) @Blankf
 
-#### 📖 Documentation
+### 🐛 Fixes
 
-* feature: add optional insights block to firewall policy (#18) @Blankf
+* bug: Fix zones prefix ([#16](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/16)) ([e507a88](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/e507a88ae4a114ef5d3d3147347281b5a28ea2cc))
 
-**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v1.1.0...v1.2.0
+## [1.0.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.8.3...v1.0.0) (2025-05-12)
 
-## v1.1.0 - 2026-01-21
 
-### What's Changed
+### 🚀 Features
 
-#### 🚀 Features
+* enhancement: new virtual wan firewall options ([#15](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/15)) ([0b3a962](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/0b3a962dd296c501dd53e95029903ab3b03f875e))
 
-* enhancement: Make firewall variables and routing intent optional when not used. (#17) @stimmerman
+## [0.8.3](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.8.2...v0.8.3) (2025-04-02)
 
-**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v1.0.1...v1.1.0
 
-## v1.0.1 - 2025-05-13
+### 🐛 Fixes
 
-### What's Changed
+* output error ([#14](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/14)) ([4214c80](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/4214c80b93b576da647de4feaef237889fc3d1a0))
 
-#### 🐛 Bug Fixes
+## [0.8.2](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.8.1...v0.8.2) (2025-04-02)
 
-* bug: Fix zones prefix (#16) @Blankf
 
-**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v1.0.0...v1.0.1
+### 🐛 Fixes
 
-## v1.0.0 - 2025-05-12
+* bug: RG creation ([#13](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/13)) ([510a6fd](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/510a6fdb7add35c369bf5286d3bf2384ee098c0d))
 
-### What's Changed
+## [0.8.1](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.8.0...v0.8.1) (2025-03-31)
 
-#### 🚀 Features
+## [0.8.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.7.1...v0.8.0) (2025-03-11)
 
-* enhancement: new virtual wan firewall options (#15) @Blankf
 
-#### 📖 Documentation
+### 🚀 Features
 
-* enhancement: new virtual wan firewall options (#15) @Blankf
+* enhancement: module outputs ([#11](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/11)) ([6cf8388](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/6cf8388d35e0df837de36301672addd6955556d4))
 
-**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v0.8.3...v1.0.0
+## [0.7.1](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.7.0...v0.7.1) (2025-03-04)
 
-## v0.8.3 - 2025-04-02
 
-### What's Changed
+### 🚀 Features
 
-#### 🐛 Bug Fixes
+* enhancement: Added Resource Group ID to outputs ([#10](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/10)) ([9152845](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/91528456943aade25f157fd8ea8dc87752f93689))
 
-* fix: output error (#14) @gillianstravers
+## [0.7.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.6.1...v0.7.0) (2025-03-04)
 
-**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v0.8.2...v0.8.3
 
-## v0.8.2 - 2025-04-02
+### 🚀 Features
 
-### What's Changed
+* enhancement: intrusion_detection and tls_certificate ([#9](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/9)) ([afb3c39](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/afb3c390f6364e7ce21c04aee89206c62a6b7fda))
 
-#### 🐛 Bug Fixes
+## [0.6.1](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.6.0...v0.6.1) (2025-02-27)
 
-* bug: RG creation (#13) @gillianstravers
 
-**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v0.8.1...v0.8.2
+### 🐛 Fixes
 
-## v0.8.1 - 2025-03-31
+* bug: Restore resource group resource ([#7](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/7)) ([3760f51](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/3760f51aba7ddabe210f64c559401bdf0f408846))
 
-### What's Changed
+## [0.6.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.5.0...v0.6.0) (2025-02-19)
 
-#### 🧺 Miscellaneous
 
-* chore: minor code improvements (#12) @niekvanraaij
+### 🚀 Features
 
-**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v0.8.0...v0.8.1
+* enhancement: change name of the proxy, it is a dns proxy to be more precise ([#6](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/6)) ([08badca](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/08badcaa7122572cbe4547f944ad2eef3c15ec33))
 
-## v0.8.0 - 2025-03-11
+## [0.5.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.4.1...v0.5.0) (2025-02-19)
 
-### What's Changed
 
-#### 🚀 Features
+### 🚀 Features
 
-* enhancement: module outputs (#11) @Blankf
+* enhancement: Add the zones option for the azure firewall ([#5](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/5)) ([86b64fc](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/86b64fc2f0e6908830aa751a7447a2b1d4aaf63d))
 
-**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-vwan/compare/v0.7.1...v0.8.0
+## [0.4.1](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.4.0...v0.4.1) (2025-01-28)
+
+
+### 🐛 Fixes
+
+* minor fixes ([#4](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/4)) ([5be76a8](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/5be76a8788a588f30777e09b0de8fb2e43b70b4a))
+
+## [0.4.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.3.1...v0.4.0) (2025-01-15)
+
+
+### 🚀 Features
+
+* Add BGP peering as an option ([#3](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/3)) ([a3eeeaf](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/a3eeeaf47c8421d68bc369cc308a84f95b28c058))
+
+## [0.3.1](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.3.0...v0.3.1) (2024-12-10)
+
+
+### 🐛 Fixes
+
+* tags ([#2](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/2)) ([9f088ec](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/9f088ec8d71127d3b0517fa1c8812247b7c07193))
+
+## [0.3.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v.0.2.0...v0.3.0) (2024-11-27)
+
+
+### 🚀 Features
+
+* Add option for tags and descriptions ([#1](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/1)) ([f5202cb](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/f5202cbbb93a0285bd1d0ef9941b2e13561524b5))
+* Add option for tags and descriptions ([#1](https://github.com/schubergphilis/terraform-azure-mcaf-vwan/pull/1)) ([f5202cb](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/f5202cbbb93a0285bd1d0ef9941b2e13561524b5))
+
+## [.0.2.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v0.1.0...v.0.2.0) (2024-11-19)
+
+## 0.1.0 (2024-11-19)
+
