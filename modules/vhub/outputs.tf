@@ -8,6 +8,11 @@ output "firewall_policy_id" {
   value       = var.firewall_deploy ? azurerm_firewall_policy.this[0].id : null
 }
 
+output "firewall_private_ip_address" {
+  description = "The ID of the Firewall within the Virtual Hub."
+  value       = var.firewall_deploy ? local.firewall_private_ip_address : null
+}
+
 output "firewall_public_ip_addresses" {
   description = "The public IP addresses of the Firewall."
   value       = local.firewall_public_ip_addresses

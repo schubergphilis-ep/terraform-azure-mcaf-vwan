@@ -1,8 +1,3 @@
-output "resource_group_id" {
-  description = "ID of the Resource Group created by the module"
-  value       = var.create_new_resource_group ? azurerm_resource_group.this[0].id : null
-}
-
 output "virtual_wan" {
   description = "output the resource of the vwan"
   value       = azurerm_virtual_wan.this
@@ -38,6 +33,13 @@ output "vhub_firewall_policy_ids" {
   description = "Map of IDs of the Firewall Policies created in each Virtual Hub"
   value = {
     for k, v in module.vhub : k => v.firewall_policy_id
+  }
+}
+
+output "vhub_firewall_private_ip_addresses" {
+  description = "Map of private IP addresses of the Firewalls created in each Virtual Hub"
+  value = {
+    for k, v in module.vhub : k => v.firewall_private_ip_address if v.firewall_private_ip_address != null
   }
 }
 

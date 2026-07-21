@@ -19,6 +19,11 @@ locals {
     local.ip_mode_classic ? azurerm_firewall.this[0].id : azapi_resource.firewall[0].id
   ) : null
 
+  firewall_private_ip_address = var.firewall_deploy ? (
+    local.ip_mode_classic ? azurerm_firewall.this[0].id : azapi_resource.firewall[0].output.private_ip_address
+  ) : null
+
+
   # In BYOIP-only mode this returns [] because the module does not manage
   # those IPs and only has resource IDs, not resolved addresses.
   # Consumers deploying BYOIP firewalls know their own IP addresses.
