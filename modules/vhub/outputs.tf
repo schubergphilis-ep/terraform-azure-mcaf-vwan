@@ -1,11 +1,16 @@
 output "firewall_id" {
   description = "The ID of the Firewall within the Virtual Hub."
-  value       = var.firewall_deploy ? local.firewall_id : null
+  value       = local.firewall_id
 }
 
 output "firewall_policy_id" {
   description = "The ID of the Firewall Policy within the Virtual Hub."
   value       = var.firewall_deploy ? azurerm_firewall_policy.this[0].id : null
+}
+
+output "firewall_private_ip_address" {
+  description = "The ID of the Firewall within the Virtual Hub."
+  value       = local.firewall_private_ip_address
 }
 
 output "firewall_public_ip_addresses" {

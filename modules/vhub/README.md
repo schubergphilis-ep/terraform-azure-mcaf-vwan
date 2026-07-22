@@ -36,8 +36,6 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_address_prefix"></a> [address\_prefix](#input\_address\_prefix) | The IP address prefix assigned to the virtual hub (e.g., '10.0.0.0/16'). | `string` | n/a | yes |
-| <a name="input_enable_routing_intent"></a> [enable\_routing\_intent](#input\_enable\_routing\_intent) | Indicates wheter or not to configure routing intent. | `bool` | n/a | yes |
-| <a name="input_firewall_dns_proxy_enabled"></a> [firewall\_dns\_proxy\_enabled](#input\_firewall\_dns\_proxy\_enabled) | Indicates whether the DNS proxy is enabled for the firewall. | `bool` | n/a | yes |
 | <a name="input_firewall_dns_servers"></a> [firewall\_dns\_servers](#input\_firewall\_dns\_servers) | A list of DNS servers configured for the firewall. | `list(string)` | n/a | yes |
 | <a name="input_firewall_name"></a> [firewall\_name](#input\_firewall\_name) | The name of the Azure Firewall deployed within the virtual hub. | `string` | n/a | yes |
 | <a name="input_firewall_policy_name"></a> [firewall\_policy\_name](#input\_firewall\_policy\_name) | The name of the firewall policy applied to the Azure Firewall. | `string` | n/a | yes |
@@ -49,9 +47,11 @@ No modules.
 | <a name="input_routing_intent_name"></a> [routing\_intent\_name](#input\_routing\_intent\_name) | The name of the routing intent associated with the virtual hub. | `string` | n/a | yes |
 | <a name="input_virtual_hub_name"></a> [virtual\_hub\_name](#input\_virtual\_hub\_name) | The name of the virtual hub. | `string` | n/a | yes |
 | <a name="input_virtual_wan_id"></a> [virtual\_wan\_id](#input\_virtual\_wan\_id) | The ID of the virtual WAN. | `string` | n/a | yes |
+| <a name="input_enable_routing_intent"></a> [enable\_routing\_intent](#input\_enable\_routing\_intent) | Indicates whether or not to configure routing intent. | `bool` | `true` | no |
 | <a name="input_firewall_classic_ip_config"></a> [firewall\_classic\_ip\_config](#input\_firewall\_classic\_ip\_config) | Controls whether to use classic IP configuration for the firewall. | `bool` | `false` | no |
 | <a name="input_firewall_custom_ip_configurations"></a> [firewall\_custom\_ip\_configurations](#input\_firewall\_custom\_ip\_configurations) | List of custom IP configurations to add to the firewall. Each object must contain 'name' and 'public\_ip\_address\_id'. | <pre>list(object({<br/>    name                 = string<br/>    public_ip_address_id = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_firewall_deploy"></a> [firewall\_deploy](#input\_firewall\_deploy) | Controls whether to deploy an Azure Firewall in the Virtual Hub | `bool` | `true` | no |
+| <a name="input_firewall_dns_proxy_enabled"></a> [firewall\_dns\_proxy\_enabled](#input\_firewall\_dns\_proxy\_enabled) | Indicates whether the DNS proxy is enabled for the firewall. | `bool` | `true` | no |
 | <a name="input_firewall_insights_default_log_analytics_workspace_id"></a> [firewall\_insights\_default\_log\_analytics\_workspace\_id](#input\_firewall\_insights\_default\_log\_analytics\_workspace\_id) | The ID of the default Log Analytics Workspace that the Firewalls associated with this Firewall Policy will send their logs to, when there is no location matches in the log\_analytics\_workspace. | `string` | `null` | no |
 | <a name="input_firewall_insights_enabled"></a> [firewall\_insights\_enabled](#input\_firewall\_insights\_enabled) | Whether the insights functionality is enabled for this Firewall Policy. | `bool` | `false` | no |
 | <a name="input_firewall_insights_log_analytics_workspaces"></a> [firewall\_insights\_log\_analytics\_workspaces](#input\_firewall\_insights\_log\_analytics\_workspaces) | A list of log\_analytics\_workspace blocks. Each object must contain 'id' (the Log Analytics Workspace ID) and 'firewall\_location' (the location of the Firewalls). | <pre>list(object({<br/>    id                = string<br/>    firewall_location = string<br/>  }))</pre> | `[]` | no |
@@ -76,6 +76,7 @@ No modules.
 | <a name="output_default_route_table_id"></a> [default\_route\_table\_id](#output\_default\_route\_table\_id) | The ID of the default Route Table in the Virtual Hub. |
 | <a name="output_firewall_id"></a> [firewall\_id](#output\_firewall\_id) | The ID of the Firewall within the Virtual Hub. |
 | <a name="output_firewall_policy_id"></a> [firewall\_policy\_id](#output\_firewall\_policy\_id) | The ID of the Firewall Policy within the Virtual Hub. |
+| <a name="output_firewall_private_ip_address"></a> [firewall\_private\_ip\_address](#output\_firewall\_private\_ip\_address) | The ID of the Firewall within the Virtual Hub. |
 | <a name="output_firewall_public_ip_addresses"></a> [firewall\_public\_ip\_addresses](#output\_firewall\_public\_ip\_addresses) | The public IP addresses of the Firewall. |
 | <a name="output_routing_intent_id"></a> [routing\_intent\_id](#output\_routing\_intent\_id) | The ID of the routing intent for this Virtual Hub. |
 | <a name="output_vhub_id"></a> [vhub\_id](#output\_vhub\_id) | The ID of the Virtual WAN within which the Virtual Hub exists. |

@@ -3,12 +3,6 @@ variable "resource_group_name" {
   description = "The name of the resource group where the VWAN will be created"
 }
 
-variable "create_new_resource_group" {
-  type        = bool
-  description = "If true, a new Resourcegroup will be created"
-  default     = false
-}
-
 variable "location" {
   type        = string
   description = "The location/region where the VWAN will be created"

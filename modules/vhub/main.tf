@@ -70,6 +70,9 @@ resource "azapi_resource" "firewall" {
   name     = var.firewall_name
   location = var.location
   tags     = merge(var.tags, { "Resource Type" = "Firewall" })
+  response_export_values = {
+    "private_ip_address" = "properties.hubIPAddresses.privateIPAddress"
+  }
 
   body = {
     properties = {

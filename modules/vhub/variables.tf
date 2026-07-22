@@ -28,7 +28,8 @@ variable "address_prefix" {
 
 variable "enable_routing_intent" {
   type        = bool
-  description = "Indicates wheter or not to configure routing intent."
+  default     = true
+  description = "Indicates whether or not to configure routing intent."
 }
 
 variable "routing_intent_name" {
@@ -111,6 +112,7 @@ variable "firewall_intrusion_detection_mode" {
 
 variable "firewall_dns_proxy_enabled" {
   type        = bool
+  default     = true
   description = "Indicates whether the DNS proxy is enabled for the firewall."
 }
 
