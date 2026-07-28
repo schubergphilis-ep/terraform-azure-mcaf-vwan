@@ -9,7 +9,7 @@ output "firewall_policy_id" {
 }
 
 output "firewall_private_ip_address" {
-  description = "The ID of the Firewall within the Virtual Hub."
+  description = "The private IP of the Firewall."
   value       = local.firewall_private_ip_address
 }
 
