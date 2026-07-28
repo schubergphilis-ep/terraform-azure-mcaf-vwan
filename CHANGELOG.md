@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.0.1](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v2.0.0...v2.0.1) (2026-07-28)
+
+
+### 🐛 Fixes
+
+* firewall private ip output ([#4](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/issues/4)) ([0d39945](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/0d399452db405739145fd9fc2a9324f252a2ce33))
+
 ## [2.0.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v1.4.0...v2.0.0) (2026-07-22)
 
 
