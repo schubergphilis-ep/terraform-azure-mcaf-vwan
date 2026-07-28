@@ -76,7 +76,7 @@ No modules.
 | <a name="output_default_route_table_id"></a> [default\_route\_table\_id](#output\_default\_route\_table\_id) | The ID of the default Route Table in the Virtual Hub. |
 | <a name="output_firewall_id"></a> [firewall\_id](#output\_firewall\_id) | The ID of the Firewall within the Virtual Hub. |
 | <a name="output_firewall_policy_id"></a> [firewall\_policy\_id](#output\_firewall\_policy\_id) | The ID of the Firewall Policy within the Virtual Hub. |
-| <a name="output_firewall_private_ip_address"></a> [firewall\_private\_ip\_address](#output\_firewall\_private\_ip\_address) | The ID of the Firewall within the Virtual Hub. |
+| <a name="output_firewall_private_ip_address"></a> [firewall\_private\_ip\_address](#output\_firewall\_private\_ip\_address) | The private IP of the Firewall. |
 | <a name="output_firewall_public_ip_addresses"></a> [firewall\_public\_ip\_addresses](#output\_firewall\_public\_ip\_addresses) | The public IP addresses of the Firewall. |
 | <a name="output_routing_intent_id"></a> [routing\_intent\_id](#output\_routing\_intent\_id) | The ID of the routing intent for this Virtual Hub. |
 | <a name="output_vhub_id"></a> [vhub\_id](#output\_vhub\_id) | The ID of the Virtual WAN within which the Virtual Hub exists. |
