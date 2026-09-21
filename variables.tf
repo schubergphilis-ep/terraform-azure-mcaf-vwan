@@ -32,6 +32,7 @@ variable "virtual_hubs" {
     address_prefix                              = string
     location                                    = string
     enable_routing_intent                       = optional(bool, true)
+    hub_routing_preference                      = optional(string, "ExpressRoute")
     routing_intent_name                         = optional(string)
     firewall_deploy                             = optional(bool, true)
     firewall_classic_ip_config                  = optional(bool, false)
@@ -118,12 +119,21 @@ variable "virtual_hubs" {
     error_message = "firewall_public_ip_prefix_length can only be used when firewall_classic_ip_config is false."
   }
 
+  validation {
+    condition = alltrue([
+      for k, v in var.virtual_hubs :
+      contains(["ExpressRoute", "VpnGateway", "ASPath"], v.hub_routing_preference)
+    ])
+    error_message = "hub_routing_preference must be one of 'ExpressRoute', 'VpnGateway' or 'ASPath'."
+  }
+
   description = <<DESCRIPTION
 This variable defines the configuration for virtual hubs, including firewall settings, routing, and security configurations.
 
 - virtual_hub_name: The name of the virtual hub (string).
 - location: The Azure region where the virtual hub is deployed (string).
 - address_prefix: The IP address prefix assigned to the virtual hub (string).
+- hub_routing_preference: The route source the hub prefers when it learns the same prefix from more than one source, one of "ExpressRoute", "VpnGateway" or "ASPath" (optional, defaults to "ExpressRoute") (string).
 - routing_intent_name: The name of the routing intent associated with the hub (string).
 - firewall_deploy: Whether to deploy an Azure Firewall in the Virtual Hub (optional, defaults to true) (bool).
 - firewall_classic_ip_config: Whether to use classic IP configuration for the firewall (optional, defaults to false) (bool).

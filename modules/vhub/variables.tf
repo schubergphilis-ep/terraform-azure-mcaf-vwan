@@ -32,6 +32,16 @@ variable "enable_routing_intent" {
   description = "Indicates whether or not to configure routing intent."
 }
 
+variable "hub_routing_preference" {
+  type        = string
+  default     = "ExpressRoute"
+  description = "The route source the virtual hub prefers when it learns the same prefix from more than one source. One of 'ExpressRoute', 'VpnGateway' or 'ASPath'."
+  validation {
+    condition     = contains(["ExpressRoute", "VpnGateway", "ASPath"], var.hub_routing_preference)
+    error_message = "hub_routing_preference must be one of 'ExpressRoute', 'VpnGateway' or 'ASPath'."
+  }
+}
+
 variable "routing_intent_name" {
   type        = string
   description = "The name of the routing intent associated with the virtual hub."
