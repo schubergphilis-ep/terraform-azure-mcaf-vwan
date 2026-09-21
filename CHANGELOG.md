@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.0](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v2.0.1...v2.1.0) (2026-09-21)
+
+
+### 🚀 Features
+
+* allow hub_routing_preference to be set on a virtual hub ([#6](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/issues/6)) ([a9586ae](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/commit/a9586aed38a6a6f3a000b85e0d4f3b2fcf3117d5))
+
 ## [2.0.1](https://github.com/schubergphilis-ep/terraform-azure-mcaf-vwan/compare/v2.0.0...v2.0.1) (2026-07-28)
 
 
