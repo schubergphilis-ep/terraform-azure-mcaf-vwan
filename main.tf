@@ -21,6 +21,7 @@ module "vhub" {
   location                                             = each.value.location
   address_prefix                                       = each.value.address_prefix
   enable_routing_intent                                = each.value.enable_routing_intent
+  hub_routing_preference                               = each.value.hub_routing_preference
   routing_intent_name                                  = each.value.routing_intent_name
   firewall_name                                        = each.value.firewall_name
   firewall_zones                                       = each.value.firewall_zones

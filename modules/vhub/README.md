@@ -66,6 +66,7 @@ No modules.
 | <a name="input_firewall_public_ip_ddos_protection_plan_id"></a> [firewall\_public\_ip\_ddos\_protection\_plan\_id](#input\_firewall\_public\_ip\_ddos\_protection\_plan\_id) | The ID of the DDoS protection plan to be attached to the public IP. Required if ddos\_protection\_mode is Enabled. | `string` | `null` | no |
 | <a name="input_firewall_public_ip_prefix_length"></a> [firewall\_public\_ip\_prefix\_length](#input\_firewall\_public\_ip\_prefix\_length) | The public ip prefix length that will be requested for the firewall. Required if firewall\_public\_ip\_count is not set. | `number` | `null` | no |
 | <a name="input_firewall_public_ip_tags"></a> [firewall\_public\_ip\_tags](#input\_firewall\_public\_ip\_tags) | A map of additional tags to assign specifically to the public IP resources created for the Azure Firewall. | `map(string)` | `{}` | no |
+| <a name="input_hub_routing_preference"></a> [hub\_routing\_preference](#input\_hub\_routing\_preference) | The route source the virtual hub prefers when it learns the same prefix from more than one source. One of 'ExpressRoute', 'VpnGateway' or 'ASPath'. | `string` | `"ExpressRoute"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to assign to the resource. | `map(string)` | `{}` | no |
 
 ## Outputs

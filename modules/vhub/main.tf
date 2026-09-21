@@ -6,11 +6,12 @@
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_virtual_hub" "this" {
-  name                = var.virtual_hub_name
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  address_prefix      = var.address_prefix
-  virtual_wan_id      = var.virtual_wan_id
+  name                   = var.virtual_hub_name
+  resource_group_name    = var.resource_group_name
+  location               = var.location
+  address_prefix         = var.address_prefix
+  virtual_wan_id         = var.virtual_wan_id
+  hub_routing_preference = var.hub_routing_preference
 
   tags = merge(var.tags, { "Resource Type" = "Virtual Hub" })
 }
